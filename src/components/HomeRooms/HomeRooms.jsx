@@ -366,7 +366,7 @@ export default function HomeRooms() {
           {/* ── Gold brush — actual asset, placed immediately below SVG ── */}
           <img
             ref={brushRef}
-            src="/gold.png"
+            src={`${import.meta.env.BASE_URL}gold.png`}
             alt=""
             className="hr-gold-brush"
             aria-hidden="true"
@@ -403,7 +403,7 @@ export default function HomeRooms() {
               {/* Clipped food photograph */}
               <div className="hr-image-clip-wrapper">
                 <img
-                  src="/appetizer.jpg"
+                  src={`${import.meta.env.BASE_URL}appetizer.jpg`}
                   alt="Tres Bon appetizer served with green herb sauce, signature drink and seasonal garnishes"
                   className="hr-image blurred-image"
                   loading="lazy"

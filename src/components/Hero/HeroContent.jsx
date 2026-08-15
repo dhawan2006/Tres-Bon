@@ -6,7 +6,7 @@ export default function HeroContent() {
     <div className="hero__content">
       {/* Hero Logo */}
       <img
-        src="/logo.png"
+        src={`${import.meta.env.BASE_URL}logo.png`}
         alt="Tres Bon Logo"
         className="hero__monogram"
         draggable="false"
