@@ -22,26 +22,6 @@
   margin: 0;
 }
 
-/* ── New Monogram Logo ── */
-.hero__monogram {
-  position: absolute;
-  /* Grow upwards from the top of the CTA to prevent overlap */
-  bottom: 100%;
-  margin-bottom: 45vh; /* Refined breathing room above the CTA */
-  
-  /* Elegantly sized logo */
-  width: clamp(40px, 4vw, 300px);
-  height: auto;
-  aspect-ratio: 1199 / 1312;
-  object-fit: contain;
-  
-  /* Keep centered relative to the hero__content container */
-  left: 50%;
-  transform: translateX(-50%);
-  
-  will-change: opacity, transform;
-}
-
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
   .hero__content {

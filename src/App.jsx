@@ -1,3 +1,4 @@
+import Navigation from './components/Navigation/Navigation'
 import Hero from './components/Hero/Hero'
 import HomeRooms from './components/HomeRooms/HomeRooms'
 import SmoothScroll from './components/SmoothScroll/SmoothScroll'
@@ -6,6 +7,7 @@ import './styles/globals.css'
 function App() {
   return (
     <SmoothScroll>
+      <Navigation />
       <main>
         <div className="hero-transition-wrapper">
           <Hero />

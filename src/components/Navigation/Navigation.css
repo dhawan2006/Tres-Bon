@@ -4,14 +4,20 @@
    ───────────────────────────────────────────────────────── */
 
 .nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 20;
-
-  /* Standard block layout, elements positioned individually */
+  z-index: 1000;
   display: block;
+  pointer-events: none; /* Let clicks pass through empty spaces to Hero / Section 2 below */
+}
+
+/* Re-enable clicks only for interactive areas */
+.nav__left,
+.nav__center,
+.nav__right {
+  pointer-events: auto;
 }
 
 /* ─── Left column ─── */
@@ -30,7 +36,7 @@
   gap: 14px;
   padding: 0;
   color: var(--luxury-white);
-  transition: opacity 0.3s var(--ease-luxury);
+  transition: opacity 0.3s var(--ease-luxury), color 0.4s var(--ease-luxury);
 }
 
 .nav__menu-btn:hover {
@@ -55,7 +61,7 @@
   height: 1px;
   background: var(--luxury-white);
   transform-origin: center;
-  transition: transform 0.35s var(--ease-luxury), opacity 0.25s;
+  transition: transform 0.35s var(--ease-luxury), opacity 0.25s, background-color 0.4s var(--ease-luxury);
 }
 
 .nav__menu-label {
@@ -66,6 +72,7 @@
   text-transform: uppercase;
   color: var(--luxury-white);
   line-height: 1;
+  transition: color 0.4s var(--ease-luxury);
 }
 
 .nav__center {
@@ -75,6 +82,7 @@
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
+  transition: opacity 0.4s var(--ease-luxury);
 }
 
 .nav__logo-link {
@@ -107,7 +115,7 @@
   text-transform: uppercase;
   color: var(--luxury-white);
   line-height: 1;
-  transition: opacity 0.3s var(--ease-luxury);
+  transition: opacity 0.3s var(--ease-luxury), color 0.4s var(--ease-luxury);
 }
 
 .nav__inquire:hover {
@@ -117,6 +125,33 @@
 .nav__inquire:focus-visible {
   outline: 1px solid rgba(255,255,255,0.5);
   outline-offset: 4px;
+}
+
+/* ─── Dark State (when over Section 2) ─── */
+.nav--dark .nav__menu-btn {
+  color: var(--hr-text-dark, #5A4638);
+}
+
+.nav--dark .nav__line {
+  background: var(--hr-text-dark, #5A4638);
+}
+
+.nav--dark .nav__menu-label {
+  color: var(--hr-text-dark, #5A4638);
+}
+
+.nav--dark .nav__inquire {
+  color: var(--hr-text-dark, #5A4638);
+}
+
+.nav--dark .nav__inquire:focus-visible,
+.nav--dark .nav__menu-btn:focus-visible {
+  outline-color: rgba(90, 70, 56, 0.5);
+}
+
+.nav--dark .nav__center {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ─── Responsive ─── */

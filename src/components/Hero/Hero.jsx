@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import Navigation from '../Navigation/Navigation'
 import HeroBackground from './HeroBackground'
 import HeroContent from './HeroContent'
 import ScrollIndicator from '../ScrollIndicator/ScrollIndicator'
@@ -29,23 +28,7 @@ export default function Hero() {
         0
       )
 
-      // 3. Navigation fades down
-      tl.fromTo(
-        '.nav',
-        { opacity: 0, y: -18 },
-        { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' },
-        0.4
-      )
-
-      // 4. Monogram logo fades in
-      tl.fromTo(
-        '.hero__monogram',
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 1.0 },
-        0.7
-      )
-
-      // 5. CTA fades in
+      // 4. CTA fades in
       tl.fromTo(
         '.hero__cta-wrap',
         { opacity: 0, y: 22 },
@@ -53,7 +36,7 @@ export default function Hero() {
         1.0
       )
 
-      // 6. Scroll indicator
+      // 5. Scroll indicator
       tl.fromTo(
         '.scroll-indicator',
         { opacity: 0 },
@@ -68,7 +51,6 @@ export default function Hero() {
   return (
     <section className="hero" ref={heroRef} aria-label="Hero">
       <HeroBackground />
-      <Navigation />
       <HeroContent />
       <ScrollIndicator />
     </section>

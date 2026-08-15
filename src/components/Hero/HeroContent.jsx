@@ -4,18 +4,10 @@ import './HeroContent.css'
 export default function HeroContent() {
   return (
     <div className="hero__content">
-      {/* Hero Logo */}
-      <img
-        src={`${import.meta.env.BASE_URL}logo.png`}
-        alt="Tres Bon Logo"
-        className="hero__monogram"
-        draggable="false"
-      />
-
       {/* CTA */}
       <div className="hero__cta-wrap">
         <EditorialCTA
-          label="REQUEST A PRIVATE CONSULTATION"
+          label="RESERVE YOUR TABLE TODAY"
           theme="light"
           href="#contact"
         />
