@@ -1,0 +1,52 @@
+/* ─────────────────────────────────────────────────────────
+   HERO BACKGROUND — full-bleed image + cinematic overlay
+   ───────────────────────────────────────────────────────── */
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform-origin: center center;
+}
+
+.hero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Centre on the warm lit wall / Tres Bon branding for desktop */
+  object-position: center 38%;
+  will-change: transform;
+  user-select: none;
+}
+
+/*
+  Overlay — cinematic dark veil
+  Tuned so the image remains visible (the warm amber glow stays readable)
+  while giving sufficient contrast for white text above.
+  The gradient falls off heavier at top (nav) and bottom (scroll indicator).
+*/
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 6, 3, 0.55) 0%,
+    rgba(8, 6, 3, 0.32) 30%,
+    rgba(8, 6, 3, 0.28) 52%,
+    rgba(8, 6, 3, 0.50) 100%
+  );
+  z-index: 1;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .hero__bg-img {
+    /* On mobile, keep the brand wall centered horizontally,
+       show more of the warm lit foreground */
+    object-position: center 32%;
+  }
+}

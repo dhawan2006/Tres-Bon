@@ -1,0 +1,80 @@
+/* ─────────────────────────────────────────────────────────
+   EDITORIAL CTA — text + 1px underline
+   Matches reference: wide-tracked uppercase, solid 1px line below
+   ───────────────────────────────────────────────────────── */
+
+.editorial-cta {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;  /* left-align so line follows text width */
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  /* Let the container be exactly as wide as the text */
+  width: max-content;
+}
+
+/* ─── Label ─── */
+.editorial-cta__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  transition: transform 500ms cubic-bezier(.22,1,.36,1), opacity 400ms ease;
+}
+
+/* ─── Underline — 1px solid line matching reference exactly ─── */
+.editorial-cta__line {
+  display: block;
+  width: 100%;          /* exactly the width of the text container */
+  height: 1px;          /* reference shows a clear solid 1px line */
+  margin-top: 8px;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* ─── Hover interactions ─── */
+.editorial-cta:hover .editorial-cta__label {
+  transform: translateX(3px);
+  opacity: 0.75;
+  transition: transform 500ms cubic-bezier(.22,1,.36,1), opacity 400ms ease;
+}
+
+/* ─── Theme: light (white on dark backgrounds) ─── */
+.editorial-cta--light .editorial-cta__label {
+  color: #ffffff;
+}
+
+.editorial-cta--light .editorial-cta__line {
+  background: rgba(255, 255, 255, 0.90);
+}
+
+.editorial-cta--light:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 6px;
+}
+
+/* ─── Theme: dark ─── */
+.editorial-cta--dark .editorial-cta__label {
+  color: var(--luxury-dark);
+}
+
+.editorial-cta--dark .editorial-cta__line {
+  background: rgba(10, 8, 5, 0.7);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .editorial-cta__label {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+  }
+}

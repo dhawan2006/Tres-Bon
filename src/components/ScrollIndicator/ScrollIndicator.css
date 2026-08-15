@@ -1,0 +1,68 @@
+/* ─────────────────────────────────────────────────────────
+   SCROLL INDICATOR — independently bottom-anchored
+   Structure: vertical track (top) + "scroll to explore" (bottom)
+   Matches reference: ~180px tall track, label sits directly below
+   ───────────────────────────────────────────────────────── */
+
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;             /* anchored to viewport bottom */
+  transform: translateX(-50%);
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Vertical track — 1px wide, tall, subtle */
+.scroll-indicator__track {
+  position: relative;
+  width: 1px;
+  height: 180px;            /* reference shows a tall track */
+  background: rgba(255, 255, 255, 0.30);
+  overflow: hidden;
+}
+
+/* Moving thumb — brighter segment that travels down */
+.scroll-indicator__thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 60px;
+  background: #ffffff;
+  will-change: transform, opacity;
+}
+
+/* "scroll to explore" label */
+.scroll-indicator__label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;          /* 300 renders blurry at small sizes */
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  text-transform: lowercase;
+  white-space: nowrap;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 24px;
+  }
+
+  .scroll-indicator__track {
+    height: 110px;
+  }
+
+  .scroll-indicator__label {
+    font-size: 10px;
+  }
+}

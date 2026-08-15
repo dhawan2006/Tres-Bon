@@ -1,0 +1,486 @@
+/* ═══════════════════════════════════════════════════════════════════
+   HOME ROOMS — SECTION 2
+   Tres Bon editorial welcome composition
+   Palazzo Sogni structure · Exact SVG mask reveal · Gold brush asset
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Section-scoped design tokens ── */
+:root {
+  --hr-bg:              #F0E9E0;
+  --hr-text-dark:       #5A4638;
+  --hr-text-secondary:  #78685A;
+  --hr-frame-color:     #A47C61;
+  --hr-font-serif:      'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --hr-font-sans:       'Jost', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SECTION SHELL
+   ════════════════════════════════════════════════════════════════ */
+
+.hr-section {
+  position: relative;
+  z-index: 2; /* Stacks above the sticky hero */
+  width: 100%;
+  background: var(--hr-bg);
+  color: var(--hr-text-dark);
+  overflow: hidden;
+  padding: 140px 0 170px;
+}
+
+/* ── Inner max-width container used by all direct children ── */
+.hr-section > * {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   STAGE A — INTRODUCTORY STATEMENT
+   ════════════════════════════════════════════════════════════════ */
+
+.hr-intro {
+  text-align: center;
+  margin-bottom: 120px;
+}
+
+.hr-intro__statement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+
+  /* Wide enough that each line stays on one line at 1440px+ */
+  width: 80vw;
+  max-width: 1150px;
+  margin-inline: auto;
+
+  font-family: var(--hr-font-serif);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--hr-text-dark);
+}
+
+/* overflow:hidden for the line-slide reveal animation */
+.hr-intro__line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.hr-intro__line-inner {
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   STAGE B — WELCOME COMPOSITION WRAPPER
+   ════════════════════════════════════════════════════════════════ */
+
+.hr-composition {
+  /* inherits max-width container from .hr-section > * */
+}
+
+/* ── Centered Welcome + Brush block ── */
+.hr-welcome-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   WELCOME SVG — EXACT ARTWORK WITH MASK REVEAL
+
+   The SVG viewBox is 0 0 1959 803 (aspect ratio ≈ 2.44:1).
+   The wrapper preserves this ratio at all viewport sizes.
+
+   The mask reveal animates the <rect> inside the SVG mask:
+     width: 0 → 1959  over 2 seconds
+   This sweeps left-to-right, revealing the calligraphic artwork
+   as if being painted in real time.
+
+   Layout: the wrapper reserves the SVG's natural aspect ratio,
+   preventing any layout shift during animation.
+   Only the SVG's internal mask changes — no layout properties
+   are animated.
+   ════════════════════════════════════════════════════════════════ */
+
+.hr-welcome-wrap {
+  /*
+    Desktop: approximately 460px wide.
+    SVG aspect ratio: 1959 / 803 ≈ 2.44
+    So at 460px width, height is ~189px — elegant, proportionate.
+  */
+  width: clamp(320px, 32vw, 480px);
+
+  /*
+    Preserve the exact SVG aspect ratio.
+    1959 : 803 = the viewBox dimensions of the artwork.
+    This reserves the correct layout height before animation starts.
+  */
+  aspect-ratio: 1959 / 803;
+
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* The actual SVG element — fills the wrapper */
+.hr-welcome-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  /*
+    Slight drop-shadow for depth — lifts the calligraphy from
+    the cream background naturally.
+  */
+  filter: drop-shadow(0 3px 2px rgba(74, 52, 24, 0.07));
+
+  /* GPU compositing hint — mask animation is GPU-accelerated */
+  will-change: contents;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   GOLD BRUSH ASSET
+   ════════════════════════════════════════════════════════════════ */
+
+.hr-gold-brush {
+  display: block;
+  position: absolute;
+  left: 50%;
+  /* 
+    Placed immediately underneath the Welcome SVG.
+    top: 40% tucks it perfectly behind the lower baseline of the lettering.
+  */
+  top: 40%;
+  /* 
+    Inverted both vertically and horizontally to match the reference tail direction.
+  */
+  transform: translateX(-50%) scale(-1, -1);
+  
+  width: clamp(320px, 30vw, 480px);
+  height: auto;
+  
+  /* Placed behind the Welcome SVG which is z-index: 2 */
+  z-index: 1;
+  pointer-events: none;
+  will-change: opacity;
+  mix-blend-mode: multiply;
+  opacity: 0.55; /* Lightens the brush color by reducing the multiply intensity */
+}
+
+/* ════════════════════════════════════════════════════════════════
+   IMAGE + TEXT CONTENT ROW
+   ════════════════════════════════════════════════════════════════ */
+
+.hr-content-row {
+  display: grid;
+  /* 3-column grid: left empty, center image, right text */
+  grid-template-columns: 1fr clamp(340px, 20vw, 410px) 1fr;
+  align-items: center;
+  gap: 50px; /* Gap between image and text */
+  width: 100%;
+  max-width: 1600px;
+  margin: 12px auto 0; /* Tighten gap below brush */
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Image column ── */
+.hr-image-col {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Arch image frame ── */
+.hr-image-frame {
+  position: relative;
+  width: 100%;
+  /* Arch proportion: 505/392 */
+  aspect-ratio: 392 / 505;
+  will-change: opacity, transform;
+}
+
+/* Clip wrapper receives the SVG arch clip-path */
+.hr-image-clip-wrapper {
+  position: absolute;
+  inset: 0;
+  clip-path: url(#tresbon-arch-clip);
+  overflow: hidden;
+}
+
+.hr-image-clip-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 238, 230, 0.04);
+  pointer-events: none;
+}
+
+.hr-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  display: block;
+}
+
+/* Arch border overlay — sits above the image */
+.hr-image-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Text column ── */
+.hr-text-col {
+  grid-column: 3;
+  justify-self: start;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.hr-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Right-side heading ── */
+.hr-text__heading {
+  font-family: var(--hr-font-serif);
+  font-size: clamp(17px, 1.55vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 1.72;
+  color: var(--hr-text-dark);
+  margin: 0;
+}
+
+.hr-text__heading-line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.8;
+}
+
+.hr-text__heading-line-inner {
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* ── Body paragraph ── */
+.hr-text__body {
+  font-family: var(--hr-font-sans);
+  font-size: clamp(15px, 1.18vw, 18px);
+  font-weight: 300;
+  line-height: 1.82;
+  color: var(--hr-text-secondary);
+  max-width: 380px;
+  letter-spacing: 0.01em;
+  will-change: opacity, transform;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤ 1024px)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .hr-section {
+    padding: 110px 0 140px;
+  }
+
+  .hr-section > * {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+
+  .hr-intro {
+    margin-bottom: 90px;
+  }
+
+  .hr-welcome-wrap {
+    width: clamp(280px, 44vw, 420px);
+  }
+
+  .hr-gold-brush {
+    width: clamp(240px, 32vw, 360px);
+  }
+
+  .hr-content-row {
+    gap: 44px;
+    margin-top: 28px;
+  }
+
+  .hr-image-frame {
+    width: clamp(220px, 28vw, 290px);
+  }
+
+  .hr-text-col {
+    max-width: 360px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 768px)
+   Stack vertically
+   ════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .hr-section {
+    padding: 80px 0 100px;
+  }
+
+  .hr-section > * {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .hr-intro {
+    margin-bottom: 64px;
+  }
+
+  .hr-intro__statement {
+    width: min(90vw, 800px);
+    font-size: clamp(17px, 4.8vw, 26px);
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  .hr-welcome-wrap {
+    width: min(80vw, 340px);
+  }
+
+  .hr-gold-brush {
+    width: min(70vw, 320px);
+  }
+
+  /* Stack vertically on mobile */
+  .hr-content-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    margin-top: 24px;
+  }
+
+  .hr-image-col {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hr-image-frame {
+    width: min(82vw, 300px);
+  }
+
+  .hr-text-col {
+    width: 100%;
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .hr-text-block {
+    gap: 20px;
+    width: 100%;
+  }
+
+  .hr-text__heading {
+    font-size: clamp(15px, 4.2vw, 20px);
+    letter-spacing: 0.10em;
+  }
+
+  .hr-text__body {
+    font-size: clamp(14px, 3.8vw, 17px);
+    max-width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (≤ 430px)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 430px) {
+  .hr-section {
+    padding: 64px 0 80px;
+  }
+
+  .hr-section > * {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hr-intro {
+    margin-bottom: 48px;
+  }
+
+  .hr-intro__statement {
+    font-size: clamp(14px, 4.5vw, 18px);
+    letter-spacing: 0.04em;
+  }
+
+  .hr-welcome-wrap {
+    width: min(86vw, 300px);
+  }
+
+  .hr-gold-brush {
+    width: min(75vw, 280px);
+  }
+
+  .hr-image-frame {
+    width: min(86vw, 280px);
+  }
+
+  .hr-content-row {
+    gap: 28px;
+    margin-top: 20px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   REDUCED MOTION — show everything immediately, no animation
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  /*
+    JS already handles this by setting mask rect to full width.
+    These CSS rules are fallback safety nets.
+  */
+
+  .hr-intro__line-inner {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hr-gold-brush {
+    opacity: 1 !important;
+  }
+
+  .hr-image-frame {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hr-text__heading-line-inner {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hr-text__body {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

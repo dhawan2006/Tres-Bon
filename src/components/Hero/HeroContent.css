@@ -1,0 +1,50 @@
+/* ─────────────────────────────────────────────────────────
+   HERO CONTENT — CTA only, absolutely pinned
+   Position based on reference viewport coordinates.
+   CTA sits at ~57% from top — this matches the reference exactly
+   even without the headline above it (intentional empty space above).
+   ───────────────────────────────────────────────────────── */
+
+.hero__content {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  transform: translateX(-50%);
+  z-index: 10;
+  /* width is auto — let the CTA determine its own width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CTA wrapper — no additional margin needed */
+.hero__cta-wrap {
+  margin: 0;
+}
+
+/* ── New Monogram Logo ── */
+.hero__monogram {
+  position: absolute;
+  /* Grow upwards from the top of the CTA to prevent overlap */
+  bottom: 100%;
+  margin-bottom: 45vh; /* Refined breathing room above the CTA */
+  
+  /* Elegantly sized logo */
+  width: clamp(40px, 4vw, 300px);
+  height: auto;
+  aspect-ratio: 1199 / 1312;
+  object-fit: contain;
+  
+  /* Keep centered relative to the hero__content container */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  will-change: opacity, transform;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .hero__content {
+    top: 58%;
+  }
+}

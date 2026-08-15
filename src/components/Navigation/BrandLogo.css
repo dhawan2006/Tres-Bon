@@ -1,0 +1,25 @@
+/* ─────────────────────────────────────────────────────────
+   BRAND LOGO — TB Monogram
+   ───────────────────────────────────────────────────────── */
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.brand-logo__img {
+  display: block;
+  width: auto;
+  height: 52px;
+  aspect-ratio: 1199 / 1312;
+  object-fit: contain;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .brand-logo__img {
+    height: 42px;
+  }
+}
