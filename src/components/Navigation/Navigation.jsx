@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import BrandLogo from './BrandLogo'
+import CinematicMenu from './CinematicMenu'
 import './Navigation.css'
 
 export default function Navigation() {
   const navRef = useRef(null)
   const [isDark, setIsDark] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     // 1. Initial Reveal Animation (Matches Hero timeline delay: 0.4s)
@@ -36,38 +38,58 @@ export default function Navigation() {
   }, [])
 
   return (
-    <nav ref={navRef} className={`nav ${isDark ? 'nav--dark' : ''}`} aria-label="Primary navigation">
+    <>
+      <nav 
+        ref={navRef} 
+        className={`nav ${isDark ? 'nav--dark' : ''} ${isMenuOpen ? 'nav--hidden' : ''}`} 
+        aria-label="Primary navigation"
+      >
 
-      {/* LEFT — Menu button */}
-      <div className="nav__left">
-        <button className="nav__menu-btn" aria-label="Toggle menu" aria-expanded="false">
-          <span className="nav__menu-lines" aria-hidden="true">
-            <span className="nav__line" />
-            <span className="nav__line" />
-          </span>
-          <span className="nav__menu-label">Menu</span>
-        </button>
-      </div>
+        {/* LEFT — Menu button */}
+        <div className="nav__left">
+          <button 
+            className="nav__menu-btn" 
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} 
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen(true)}
+          >
+            <span className="nav__menu-lines" aria-hidden="true">
+              <span className="nav__line" />
+              <span className="nav__line" />
+            </span>
+            <span className="nav__menu-label">Menu</span>
+          </button>
+        </div>
 
-      {/* CENTER — Brand logo (absolute-centered) */}
-      <div className="nav__center">
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); window.location.reload(); }}
-          aria-label="Tres Bon — Reload" 
-          className="nav__logo-link"
-        >
-          <BrandLogo />
-        </a>
-      </div>
+        {/* CENTER — Brand logo (absolute-centered) */}
+        <div className="nav__center">
+          <a 
+            href="#" 
+            onClick={(e) => { e.preventDefault(); window.location.reload(); }}
+            aria-label="Tres Bon — Reload" 
+            className="nav__logo-link"
+          >
+            <BrandLogo />
+          </a>
+        </div>
 
-      {/* RIGHT — Inquire */}
-      <div className="nav__right">
-        <a href="#contact" className="nav__inquire" aria-label="Inquire">
-          Inquire
-        </a>
-      </div>
+        {/* RIGHT — Inquire */}
+        <div className="nav__right">
+          <a href="#contact" className="nav__inquire" aria-label="Inquire">
+            Inquire
+          </a>
+        </div>
 
-    </nav>
+      </nav>
+
+      {/* 
+        The CinematicMenu remains mounted so it can manage its own 
+        entrance and exit animations internally. 
+      */}
+      <CinematicMenu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)} 
+      />
+    </>
   )
 }

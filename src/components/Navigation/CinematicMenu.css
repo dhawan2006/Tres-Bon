@@ -1,0 +1,424 @@
+/* ─────────────────────────────────────────────────────────────
+   CINEMATIC FULL-SCREEN MENU (Horizontal Layout)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --menu-bg: #F1E8D8;
+  --menu-text: #241A12;
+  --menu-accent: #B89563;
+  --menu-line: rgba(36, 26, 18, 0.18);
+}
+
+.cinematic-menu {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 2000;
+  pointer-events: none; /* Let clicks pass through when closed */
+  display: flex;
+}
+
+.cinematic-menu.is-open {
+  pointer-events: auto;
+}
+
+/* ── OVERLAY ── */
+.cinematic-menu__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 10, 8, 0.45);
+  opacity: 0; /* Animated by GSAP */
+  pointer-events: none;
+}
+.cinematic-menu.is-open .cinematic-menu__overlay {
+  pointer-events: auto; /* Click overlay to close */
+}
+
+/* ── SLIDING WRAPPER ── */
+.cinematic-menu__wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  will-change: transform;
+}
+
+/* ── IMAGE PANEL (LEFT) ── */
+.cinematic-menu__image-panel {
+  position: relative;
+  width: 28%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cinematic-menu__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Subtle overlay to harmonize image with the menu panel */
+.cinematic-menu__image-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 12, 6, 0.08);
+  pointer-events: none;
+}
+
+/* ── CONTENT PANEL (RIGHT) ── */
+.cinematic-menu__content-panel {
+  flex: 1;
+  height: 100%;
+  background: var(--menu-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 8%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--menu-text);
+}
+
+/* ── HEADER ── */
+.cinematic-menu__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+/* ── BRAND LOCKUP ── */
+.menu-brand-lockup {
+  opacity: 0; /* GSAP */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--menu-text);
+}
+
+.menu-brand-logo {
+  width: 32px;
+  height: auto;
+  object-fit: contain;
+}
+
+.menu-brand-divider {
+  width: 1px;
+  height: 18px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.menu-brand-name {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.cinematic-menu__close {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--menu-text);
+  line-height: 1;
+  transition: color 0.4s var(--ease-luxury);
+  padding: 10px 0;
+  opacity: 0; /* GSAP */
+}
+
+.cinematic-menu__close:hover {
+  color: var(--menu-accent);
+}
+
+/* ── NAVIGATION LIST ── */
+.cinematic-menu__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cinematic-menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Spacing between items */
+}
+
+.cinematic-menu__item-wrapper {
+  /* No overflow hidden here, to allow arrows to move out */
+}
+
+.cinematic-menu__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 32px;
+  text-decoration: none;
+  color: var(--menu-text);
+  position: relative;
+  padding: 4px 0;
+}
+
+.cinematic-menu__num {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  opacity: 0.3;
+  transition: opacity 0.4s var(--ease-luxury), color 0.4s var(--ease-luxury);
+  /* Fix width so numbers align vertically */
+  width: 24px;
+}
+
+/* Mask container for cinematic text reveal */
+.cinematic-menu__text-mask {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.cinematic-menu__label {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.25vw, 10px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.5;
+  transition: transform 0.4s var(--ease-luxury), letter-spacing 0.4s var(--ease-luxury);
+  /* GSAP starts this at yPercent: 110 */
+  will-change: transform;
+}
+
+.cinematic-menu__arrow {
+  font-size: clamp(20px, 2vw, 30px);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s var(--ease-luxury), transform 0.4s var(--ease-luxury), color 0.4s var(--ease-luxury);
+}
+
+/* Hover Interaction */
+.cinematic-menu__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 56px; /* Start after the number */
+  width: calc(100% - 56px);
+  height: 1px;
+  background-color: var(--menu-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease-luxury);
+}
+
+.cinematic-menu__link:hover .cinematic-menu__label {
+  transform: translateX(8px);
+  letter-spacing: 0.1em;
+}
+
+.cinematic-menu__link:hover .cinematic-menu__num {
+  opacity: 0.8;
+  color: var(--menu-accent);
+}
+
+.cinematic-menu__link:hover .cinematic-menu__arrow {
+  opacity: 1;
+  transform: translateX(6px);
+  color: var(--menu-accent);
+}
+
+.cinematic-menu__link:hover::after {
+  transform: scaleX(1);
+}
+
+.cinematic-menu__link:focus-visible {
+  outline: 1px solid var(--menu-accent);
+  outline-offset: 8px;
+}
+
+/* ── BOTTOM ACTIONS (CTA & Footer) ── */
+.cinematic-menu__bottom {
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.cinematic-menu__cta-wrapper {
+  opacity: 0; /* GSAP reveal */
+}
+
+.cinematic-menu__divider {
+  border: none;
+  border-top: 1px solid var(--menu-line);
+  margin-bottom: 32px;
+}
+
+.cinematic-menu__cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  padding: 12px 0;
+  color: var(--menu-text);
+  position: relative;
+}
+
+.cinematic-menu__cta-text {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.4s var(--ease-luxury);
+}
+
+.cinematic-menu__cta-arrow {
+  font-size: 18px;
+  transition: transform 0.4s var(--ease-luxury), color 0.4s var(--ease-luxury);
+}
+
+/* Hover Interaction CTA */
+.cinematic-menu__cta::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--menu-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease-luxury);
+}
+
+.cinematic-menu__cta:hover .cinematic-menu__cta-text,
+.cinematic-menu__cta:hover .cinematic-menu__cta-arrow {
+  color: var(--menu-accent);
+}
+
+.cinematic-menu__cta:hover .cinematic-menu__cta-arrow {
+  transform: translateX(8px);
+}
+
+.cinematic-menu__cta:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── FOOTER / SOCIALS ── */
+.cinematic-menu__footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0; /* GSAP */
+}
+
+.cinematic-menu__footer-title {
+  opacity: 0.5;
+}
+
+.cinematic-menu__socials {
+  display: flex;
+  gap: 24px;
+}
+
+.cinematic-menu__socials a {
+  text-decoration: none;
+  color: var(--menu-text);
+  opacity: 0.7;
+  transition: opacity 0.3s var(--ease-luxury), color 0.3s var(--ease-luxury);
+}
+
+.cinematic-menu__socials a:hover {
+  opacity: 1;
+  color: var(--menu-accent);
+}
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .cinematic-menu__image-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .cinematic-menu__content-panel {
+    padding: 24px var(--page-pad-mobile);
+  }
+  
+  .cinematic-menu__header {
+    padding-bottom: 24px;
+  }
+
+  .menu-brand-logo {
+    width: 25px;
+  }
+  
+  .menu-brand-name {
+    font-size: 13px;
+  }
+  
+  .menu-brand-divider {
+    height: 15px;
+  }
+
+  .cinematic-menu__link {
+    gap: 16px;
+  }
+
+  .cinematic-menu__link::after {
+    left: 40px;
+    width: calc(100% - 40px);
+  }
+
+  .cinematic-menu__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .cinematic-menu__socials {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-menu__wrapper {
+    transition: opacity 0.4s;
+    transform: none !important;
+  }
+  .cinematic-menu:not(.is-open) .cinematic-menu__wrapper {
+    opacity: 0;
+  }
+  .cinematic-menu__link {
+    transition: opacity 0.3s;
+  }
+  .cinematic-menu__link:hover .cinematic-menu__label {
+    transform: none;
+  }
+  .cinematic-menu__link:hover .cinematic-menu__arrow {
+    transform: none;
+  }
+  .cinematic-menu__link::after {
+    display: none;
+  }
+  .cinematic-menu__cta:hover .cinematic-menu__cta-arrow {
+    transform: none;
+  }
+  .cinematic-menu__cta::after {
+    display: none;
+  }
+}

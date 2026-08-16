@@ -11,6 +11,13 @@
   z-index: 1000;
   display: block;
   pointer-events: none; /* Let clicks pass through empty spaces to Hero / Section 2 below */
+  transition: opacity 0.4s var(--ease-luxury);
+}
+
+/* Hide the main nav when the full-screen menu is open */
+.nav--hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Re-enable clicks only for interactive areas */
