@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import BrandLogo from './BrandLogo'
 import CinematicMenu from './CinematicMenu'
+import MenuPage from '../MenuPage/MenuPage'
 import './Navigation.css'
 
 export default function Navigation() {
   const navRef = useRef(null)
   const [isDark, setIsDark] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuPageOpen, setIsMenuPageOpen] = useState(false)
 
   useEffect(() => {
     // 1. Initial Reveal Animation (Matches Hero timeline delay: 0.4s)
@@ -41,7 +43,7 @@ export default function Navigation() {
     <>
       <nav 
         ref={navRef} 
-        className={`nav ${isDark ? 'nav--dark' : ''} ${isMenuOpen ? 'nav--hidden' : ''}`} 
+        className={`nav ${isDark ? 'nav--dark' : ''} ${isMenuOpen || isMenuPageOpen ? 'nav--hidden' : ''}`} 
         aria-label="Primary navigation"
       >
 
@@ -89,6 +91,12 @@ export default function Navigation() {
       <CinematicMenu 
         isOpen={isMenuOpen} 
         onClose={() => setIsMenuOpen(false)} 
+        onOpenMenuPage={() => setIsMenuPageOpen(true)}
+      />
+
+      <MenuPage 
+        isOpen={isMenuPageOpen} 
+        onClose={() => setIsMenuPageOpen(false)} 
       />
     </>
   )

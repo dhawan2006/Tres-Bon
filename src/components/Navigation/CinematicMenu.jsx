@@ -12,7 +12,7 @@ const MENU_ITEMS = [
   { num: '07', label: 'CONTACT', href: '#contact' },
 ]
 
-export default function CinematicMenu({ isOpen, onClose }) {
+export default function CinematicMenu({ isOpen, onClose, onOpenMenuPage }) {
   const containerRef = useRef(null)
   const overlayRef = useRef(null)
   const wrapperRef = useRef(null)
@@ -125,7 +125,9 @@ export default function CinematicMenu({ isOpen, onClose }) {
     
     // Wait for the animation to finish before actually navigating
     setTimeout(() => {
-      if (href.startsWith('#')) {
+      if (href === '#menu' && onOpenMenuPage) {
+        onOpenMenuPage()
+      } else if (href.startsWith('#')) {
         const el = document.querySelector(href)
         if (el) el.scrollIntoView({ behavior: 'smooth' })
       } else {
