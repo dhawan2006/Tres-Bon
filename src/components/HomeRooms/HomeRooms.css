@@ -25,7 +25,7 @@
   background: var(--hr-bg);
   color: var(--hr-text-dark);
   overflow: hidden;
-  padding: 140px 0 170px;
+  padding: 140px 0 110px;
 }
 
 /* ── Inner max-width container used by all direct children ── */

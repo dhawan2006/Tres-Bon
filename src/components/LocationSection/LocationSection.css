@@ -1,0 +1,198 @@
+/* ─────────────────────────────────────────────────────────────
+   LOCATION SECTION
+   Exact Palazzo Sogni Editorial Recreation
+   ───────────────────────────────────────────────────────────── */
+
+.location-section {
+  position: relative;
+  width: 100%;
+  /* Use the exact cream background token from the existing website */
+  background: var(--hr-bg, #F0E9E0);
+  /* Use the exact dark brown text token */
+  color: var(--hr-text-dark, #5A4638);
+  /* Controlled vertical breathing room - not massive */
+  padding: 30px 0 180px;
+  overflow: hidden;
+  z-index: 1; /* Below the hero-transition-wrapper stacking context */
+}
+
+/* Container */
+.location__container {
+  width: 100%;
+  max-width: 100%; /* Flow based on padding */
+  margin: 0 auto;
+  /* ~10vw side margins as requested */
+  padding-left: 10vw;
+  padding-right: 10vw;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* ─── LEFT: Editorial Copy ─── */
+.location__left {
+  /* Approximately 60% of the 80vw container = ~48vw text column width */
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  /* Generous gap between headline and supporting text (50-90px) */
+  gap: 70px;
+}
+
+/* Headline */
+.location__headline {
+  /* Use the exact serif token */
+  font-family: var(--hr-font-serif, 'Cormorant Garamond', Georgia, serif);
+  /* Elegant, restrained size - strictly matching reference scale */
+  font-size: clamp(32px, 2.35vw, 40px);
+  /* Thin/elegant weight */
+  font-weight: 300;
+  /* Generous but controlled line-height */
+  line-height: 1.18;
+  /* Restrained editorial letter spacing */
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--hr-text-dark, #5A4638);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Line mask for line-by-line reveal */
+.location__line-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 0.15em;
+}
+
+.location__line {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Supporting Paragraphs */
+.location__text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  /* Limit width so it doesn't stretch too far */
+  max-width: 420px;
+}
+
+.location__paragraph {
+  /* Use the exact sans token */
+  font-family: var(--hr-font-sans, 'Jost', Arial, sans-serif);
+  /* Small, elegant size */
+  font-size: clamp(16px, 1.2vw, 20px);
+  font-weight: 300;
+  /* Generous line-height */
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  color: var(--hr-text-secondary, #78685A);
+  will-change: transform, opacity;
+  transform: translateY(25px);
+  opacity: 0;
+}
+
+/* ─── RIGHT: Image ─── */
+.location__right {
+  /* Approximately 27-28vw */
+  width: 27.5vw;
+  display: flex;
+  justify-content: flex-end;
+  /* Image and headline start at the exact same vertical level */
+  margin-top: 0;
+}
+
+.location__image-wrapper {
+  position: relative;
+  width: 100%;
+  /* ~31-34vw height ratio */
+  aspect-ratio: 4 / 4.8;
+  /* Subtle border radius */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Initial blurred state - GSAP will interpolate from this */
+.location__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(10px);
+  opacity: 0.75;
+  /* Very subtle scale to settle into place */
+  transform: scale(1.02);
+  will-change: filter, opacity, transform;
+  display: block;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .location-section {
+    padding: 80px 0 140px;
+  }
+  
+  .location__container {
+    padding-left: 6vw;
+    padding-right: 6vw;
+  }
+
+  .location__headline {
+    font-size: clamp(34px, 4vw, 44px);
+  }
+  
+  .location__right {
+    width: 32vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .location-section {
+    padding: 60px 0 100px;
+  }
+  
+  .location__container {
+    flex-direction: column;
+    padding-left: 24px;
+    padding-right: 24px;
+    gap: 60px;
+  }
+  
+  .location__left {
+    width: 100%;
+    gap: 40px;
+  }
+  
+  .location__headline {
+    font-size: clamp(28px, 6vw, 36px);
+  }
+  
+  .location__right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .location__image-wrapper {
+    /* Keep it restrained on mobile, not fullscreen */
+    width: 85%;
+    max-width: 400px;
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Reduced Motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .location__line,
+  .location__paragraph,
+  .location__image {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
