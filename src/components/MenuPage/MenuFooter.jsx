@@ -4,7 +4,7 @@ export default function MenuFooter() {
   return (
     <footer className="menu-footer">
       <div className="menu-footer__cta">
-        <a href="#reservations" className="menu-footer__reserve-link">
+        <a href="#reserve" className="menu-footer__reserve-link">
           RESERVE A TABLE <span className="menu-footer__arrow">→</span>
         </a>
       </div>

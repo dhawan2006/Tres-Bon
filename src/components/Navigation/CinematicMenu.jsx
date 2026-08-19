@@ -127,6 +127,8 @@ export default function CinematicMenu({ isOpen, onClose, onOpenMenuPage }) {
     setTimeout(() => {
       if (href === '#menu' && onOpenMenuPage) {
         onOpenMenuPage()
+      } else if (href === '#reserve') {
+        window.location.hash = '#reserve'
       } else if (href.startsWith('#')) {
         const el = document.querySelector(href)
         if (el) el.scrollIntoView({ behavior: 'smooth' })

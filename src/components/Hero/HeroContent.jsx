@@ -9,7 +9,7 @@ export default function HeroContent() {
         <EditorialCTA
           label="RESERVE YOUR TABLE TODAY"
           theme="light"
-          href="#contact"
+          href="#reserve"
         />
       </div>
     </div>
